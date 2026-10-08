@@ -51,6 +51,12 @@ export const project = defineType({
       description: 'Örn: "180 m²"',
     }),
     defineField({
+      name: "featured",
+      title: "Öne çıkan ( /iklim portfolyo )",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "mainImage",
       title: "Ana görsel",
       type: "image",

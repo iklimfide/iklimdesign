@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SanityImage } from "@/components/SanityImage";
+import { ProjectCover } from "@/components/ProjectCover";
 import type { ProjectListItem } from "@/lib/sanity/types";
 
 type Props = {
@@ -20,65 +20,65 @@ export function ProjectGrid({ projects, categories }: Props) {
   }, [active, projects]);
 
   return (
-    <section id="projeler" className="mx-auto max-w-6xl px-5 py-16 md:px-8">
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <h2 className="text-2xl tracking-tight text-neutral-900">Projeler</h2>
-        <div className="flex flex-wrap gap-2">
-          {filters.map((category) => {
-            const isActive = active === category;
-            return (
-              <button
-                key={category}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setActive(category)}
-                className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${
-                  isActive
-                    ? "border-neutral-900 bg-neutral-900 text-white"
-                    : "border-neutral-300 bg-transparent text-neutral-700 hover:border-neutral-900"
-                }`}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
+    <section id="projects" className="space-y-10">
+      <div className="flex flex-wrap gap-2 text-xs uppercase tracking-widest text-zinc-400">
+        {filters.map((category) => {
+          const isActive = active === category;
+          return (
+            <button
+              key={category}
+              type="button"
+              aria-pressed={isActive}
+              onClick={() => setActive(category)}
+              className={
+                isActive
+                  ? "text-arch-900"
+                  : "hover:text-arch-900"
+              }
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
       {visible.length === 0 ? (
-        <p className="mt-10 text-sm text-neutral-500">
-          Bu kategoride henüz proje yok.
-        </p>
+        <p className="text-sm text-zinc-500">Bu kategoride henüz proje yok.</p>
       ) : (
-        <ul className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-24">
           {visible.map((project, index) => (
-            <li key={project._id}>
-              <a href={`/projeler/${project.slug}`} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-neutral-200">
-                  {project.mainImage?.asset ? (
-                    <SanityImage
-                      image={project.mainImage}
-                      alt={project.mainImage.alt || project.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      priority={index < 3}
-                      width={900}
-                    />
-                  ) : null}
+            <a
+              key={project._id}
+              href={`/projeler/${project.slug}`}
+              className="group block cursor-pointer"
+            >
+              <div className="relative mb-6 aspect-[16/10] overflow-hidden bg-arch-100">
+                <ProjectCover
+                  project={project}
+                  sizes="(max-width: 1024px) 100vw, 75vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  priority={index < 2}
+                  width={1600}
+                />
+              </div>
+              <div className="flex flex-col justify-between border-t border-arch-200 pt-2 md:flex-row md:items-end">
+                <div>
+                  <span className="text-xs uppercase tracking-widest text-zinc-400">
+                    {String(index + 1).padStart(2, "0")} / {project.category}
+                  </span>
+                  <h2 className="font-display mt-1 text-2xl font-medium underline-offset-4 group-hover:underline md:text-3xl">
+                    {project.title}
+                  </h2>
                 </div>
-                <div className="mt-3 flex items-baseline justify-between gap-3">
-                  <h3 className="text-base text-neutral-900">{project.title}</h3>
-                  {project.year ? (
-                    <span className="text-xs text-neutral-500">{project.year}</span>
-                  ) : null}
+                <div className="mt-4 space-y-1 font-mono text-xs text-zinc-500 md:mt-0 md:text-right">
+                  {project.location ? <p>{project.location}</p> : null}
+                  <p>
+                    {[project.year, project.area].filter(Boolean).join(" — ")}
+                  </p>
                 </div>
-                <p className="mt-1 text-sm text-neutral-500">
-                  {[project.category, project.location].filter(Boolean).join(" · ")}
-                </p>
-              </a>
-            </li>
+              </div>
+            </a>
           ))}
-        </ul>
+        </div>
       )}
     </section>
   );

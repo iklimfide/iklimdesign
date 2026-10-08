@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { AboutContact } from "@/components/AboutContact";
-import { Hero } from "@/components/Hero";
 import { PortfolioCard } from "@/components/PortfolioCard";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import {
@@ -20,7 +19,6 @@ async function HomeContent() {
 
   return (
     <>
-      <Hero />
       <ProjectGrid projects={projects} categories={categories} />
       <PortfolioCard portfolio={portfolio} />
       <AboutContact settings={settings} />
@@ -30,7 +28,7 @@ async function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<p className="px-5 py-24 text-sm text-neutral-500">Yükleniyor…</p>}>
+    <Suspense fallback={<p className="text-sm text-zinc-500">Yükleniyor…</p>}>
       <HomeContent />
     </Suspense>
   );

@@ -10,26 +10,32 @@ export function PortfolioCard({ portfolio }: Props) {
     : undefined;
 
   return (
-    <section id="portfolyo" className="mx-auto max-w-6xl px-5 py-16 md:px-8">
-      <div className="flex flex-col gap-6 border border-neutral-200 bg-white px-6 py-10 md:flex-row md:items-center md:justify-between md:px-10">
-        <div>
-          <h2 className="text-2xl tracking-tight text-neutral-900">Portfolyo</h2>
-          <p className="mt-2 max-w-lg text-sm leading-6 text-neutral-600">
-            Seçilmiş projelerin yer aldığı PDF portfolyoyu indirebilirsiniz.
-          </p>
-        </div>
-        {href ? (
-          <a
-            href={href}
-            download
-            className="inline-flex rounded-full bg-neutral-900 px-5 py-3 text-sm text-white transition-colors hover:bg-neutral-700"
-          >
-            {portfolio?.title || "Portfolyo"} indir
-          </a>
-        ) : (
-          <p className="text-sm text-neutral-500">PDF henüz yüklenmedi.</p>
-        )}
+    <section
+      id="portfolio"
+      className="flex flex-col justify-between gap-8 border-t border-arch-200 pt-12 md:flex-row md:items-end"
+    >
+      <div className="space-y-2">
+        <span className="text-xs uppercase tracking-widest text-zinc-400">
+          Portfolyo (PDF)
+        </span>
+        <h2 className="font-display text-2xl font-medium md:text-3xl">
+          Tam Portfolyo Dosyasını İnceleyin
+        </h2>
+        <p className="max-w-md text-sm text-zinc-500">
+          Çizimler, malzeme paftaları ve detaylı görseller içeren güncel katalog.
+        </p>
       </div>
+      {href ? (
+        <a
+          href={href}
+          download
+          className="border border-arch-900 px-5 py-3 text-xs uppercase tracking-widest transition-colors hover:bg-arch-900 hover:text-white"
+        >
+          PDF İndir
+        </a>
+      ) : (
+        <p className="text-sm text-zinc-400">PDF henüz yüklenmedi.</p>
+      )}
     </section>
   );
 }

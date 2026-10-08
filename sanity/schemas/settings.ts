@@ -6,10 +6,40 @@ export const settings = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "portrait",
+      title: "Portre ( /iklim )",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt metin",
+          type: "string",
+        }),
+      ],
+    }),
+    defineField({
+      name: "aboutHeadline",
+      title: "Hakkımda başlığı",
+      type: "string",
+    }),
+    defineField({
       name: "bio",
       title: "Biyografi",
       type: "text",
       rows: 8,
+    }),
+    defineField({
+      name: "education",
+      title: "Eğitim",
+      type: "text",
+      rows: 4,
+    }),
+    defineField({
+      name: "expertise",
+      title: "Uzmanlık",
+      type: "text",
+      rows: 3,
     }),
     defineField({
       name: "email",

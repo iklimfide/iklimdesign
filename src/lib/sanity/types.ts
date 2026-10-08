@@ -34,7 +34,10 @@ export type ProjectListItem = {
   location?: string;
   year?: number;
   area?: string;
+  featured?: boolean;
   mainImage?: SanityImage;
+  coverUrl?: string;
+  excerpt?: string;
 };
 
 export type PortableTextBlock = {
@@ -62,7 +65,11 @@ export type SocialLink = {
 };
 
 export type Settings = {
+  aboutHeadline?: string;
   bio?: string;
+  education?: string;
+  expertise?: string;
   email?: string;
+  portrait?: SanityImage;
   socialLinks?: SocialLink[];
 };

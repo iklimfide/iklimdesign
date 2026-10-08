@@ -1,71 +1,63 @@
-"use client";
-
-import { useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const links = [
-  { href: "/#projeler", label: "Projeler" },
-  { href: "/#portfolyo", label: "Portfolyo" },
-  { href: "/#hakkimda", label: "Hakkımda" },
-  { href: "/#iletisim", label: "İletişim" },
+  { href: "/#projects", label: "Projeler" },
+  { href: "/#portfolio", label: "Portfolyo (PDF)" },
+  { href: "/#about", label: "Hakkımda" },
+  { href: "/#contact", label: "İletişim" },
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200/80 bg-[#f7f6f3]/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
-        <a href="/" className="text-sm font-medium tracking-[0.18em] text-neutral-900">
-          İKLİM GÜVENÇ
+    <header className="z-20 flex flex-col justify-between border-b border-arch-200 bg-arch-50 p-8 lg:fixed lg:h-screen lg:w-1/3 lg:border-b-0 lg:border-r lg:p-16 xl:w-1/4">
+      <div>
+        <a href="/" className="block">
+          <BrandLogo size={96} priority className="mb-4 h-24 w-24 object-contain" />
+          <h1 className="font-display text-2xl font-bold uppercase tracking-tight text-arch-900">
+            İklim Güvenç
+          </h1>
+          <p className="mt-1 text-xs uppercase tracking-widest text-zinc-500">
+            {"İç Mimarlık & Mekan Tasarımı"}
+          </p>
         </a>
-        <nav className="hidden items-center gap-8 text-sm text-neutral-700 md:flex">
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className="transition-colors hover:text-neutral-950">
-              {link.label}
-            </a>
-          ))}
+        <nav className="mt-12 lg:mt-20">
+          <ul className="space-y-4 text-sm font-medium tracking-wide">
+            {links.map((link, index) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`group flex items-center transition-colors ${
+                    index === 0
+                      ? "text-arch-900"
+                      : "text-zinc-500 hover:text-arch-900"
+                  }`}
+                >
+                  <span
+                    className={`mr-3 inline-block h-2 w-2 rounded-full transition-transform group-hover:scale-125 ${
+                      index === 0
+                        ? "bg-arch-900"
+                        : "bg-transparent group-hover:bg-arch-400"
+                    }`}
+                  />
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
-        <a
-          href="/#iletisim"
-          className="hidden rounded-full bg-neutral-900 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700 md:inline-flex"
-        >
-          İletişime Geç
-        </a>
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 md:hidden"
-          aria-expanded={open}
-          aria-label="Menü"
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">Menü</span>
-          <span className="flex flex-col gap-1.5">
-            <span className="block h-px w-4 bg-neutral-900" />
-            <span className="block h-px w-4 bg-neutral-900" />
-          </span>
-        </button>
       </div>
-      {open ? (
-        <nav className="flex flex-col gap-3 border-t border-neutral-200 px-5 py-4 text-sm md:hidden">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="py-1"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="/#iletisim"
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-flex w-fit rounded-full bg-neutral-900 px-4 py-2 text-white"
-          >
-            İletişime Geç
-          </a>
-        </nav>
-      ) : null}
+      <div className="mt-12 border-t border-arch-200 pt-8 lg:mt-0">
+        <div className="flex flex-wrap gap-x-4 text-xs uppercase tracking-wider text-zinc-500">
+          <span>Instagram</span>
+          <span>/</span>
+          <span>LinkedIn</span>
+          <span>/</span>
+          <span>Behance</span>
+        </div>
+        <p className="mt-4 text-[11px] text-zinc-400">
+          © 2026 İklim Güvenç. Tüm hakları saklıdır.
+        </p>
+      </div>
     </header>
   );
 }

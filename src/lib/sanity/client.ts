@@ -2,10 +2,10 @@ import { createClient } from "next-sanity";
 import { apiVersion, dataset, isSanityConfigured, projectId } from "../../../sanity/env";
 
 export const client = createClient({
-  projectId: projectId || "missingprojectid",
+  projectId: projectId || "s6a85d3h",
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: false,
   perspective: "published",
   stega: { enabled: false },
 });

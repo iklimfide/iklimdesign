@@ -2,7 +2,7 @@ import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url
 import { dataset, projectId } from "../../../sanity/env";
 
 const builder = createImageUrlBuilder({
-  projectId: projectId || "missingprojectid",
+  projectId: projectId || "s6a85d3h",
   dataset,
 });
 

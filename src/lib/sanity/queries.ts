@@ -20,6 +20,19 @@ export const PROJECTS_QUERY = groq`*[_type == "project"] | order(year desc) {
   location,
   year,
   area,
+  featured,
+  mainImage ${imageProjection}
+}`;
+
+export const FEATURED_PROJECTS_QUERY = groq`*[_type == "project" && featured == true] | order(year desc)[0...4] {
+  _id,
+  title,
+  "slug": slug.current,
+  category,
+  location,
+  year,
+  area,
+  featured,
   mainImage ${imageProjection}
 }`;
 
@@ -47,8 +60,12 @@ export const PORTFOLIO_QUERY = groq`*[_type == "portfolio" && _id == "portfolio"
 }`;
 
 export const SETTINGS_QUERY = groq`*[_type == "settings" && _id == "settings"][0] {
+  aboutHeadline,
   bio,
+  education,
+  expertise,
   email,
+  portrait ${imageProjection},
   socialLinks[] {
     platform,
     url

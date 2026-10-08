@@ -1,7 +1,9 @@
 import { isSanityConfigured } from "../../../sanity/env";
+import { DEMO_PROJECTS } from "@/lib/demo-projects";
 import { client } from "./client";
 import {
   CATEGORIES_QUERY,
+  FEATURED_PROJECTS_QUERY,
   PORTFOLIO_QUERY,
   PROJECT_QUERY,
   PROJECT_SLUGS_QUERY,
@@ -25,20 +27,41 @@ async function fetchSafe<T>(
 ): Promise<T | null> {
   if (!isSanityConfigured) return null;
   return client.fetch<T>(query, params, {
-    next: { revalidate: 60 },
+    cache: "no-store",
   });
 }
 
+function withDemoProjects(projects: ProjectListItem[]): ProjectListItem[] {
+  const slugs = new Set(projects.map((project) => project.slug));
+  return [
+    ...projects,
+    ...DEMO_PROJECTS.filter((project) => !slugs.has(project.slug)),
+  ];
+}
+
 export async function getProjects(): Promise<ProjectListItem[]> {
-  return (await fetchSafe<ProjectListItem[]>(PROJECTS_QUERY)) ?? [];
+  const projects = (await fetchSafe<ProjectListItem[]>(PROJECTS_QUERY)) ?? [];
+  return withDemoProjects(projects);
+}
+
+export async function getFeaturedProjects(): Promise<ProjectListItem[]> {
+  const featured =
+    (await fetchSafe<ProjectListItem[]>(FEATURED_PROJECTS_QUERY)) ?? [];
+  if (featured.length > 0) return featured;
+  return (await getProjects()).slice(0, 2);
 }
 
 export async function getProject(slug: string): Promise<Project | null> {
-  return fetchSafe<Project>(PROJECT_QUERY, { slug });
+  const fromCms = await fetchSafe<Project>(PROJECT_QUERY, { slug });
+  if (fromCms) return fromCms;
+  return DEMO_PROJECTS.find((project) => project.slug === slug) ?? null;
 }
 
 export async function getProjectSlugs(): Promise<string[]> {
-  return (await fetchSafe<string[]>(PROJECT_SLUGS_QUERY)) ?? [];
+  const slugs = (await fetchSafe<string[]>(PROJECT_SLUGS_QUERY)) ?? [];
+  return Array.from(
+    new Set([...slugs, ...DEMO_PROJECTS.map((project) => project.slug)]),
+  );
 }
 
 export async function getCategories(): Promise<string[]> {
