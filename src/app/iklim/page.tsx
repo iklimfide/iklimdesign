@@ -79,7 +79,7 @@ function Hero() {
     <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
       <div className="max-w-3xl">
         <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-stone-400">
-          Mekân Tasarımı & İç Mimarlık
+          {"Mekân Tasarımı & İç Mimarlık"}
         </span>
         <h1 className="mb-6 text-4xl font-light leading-tight text-stone-900 md:text-6xl">
           Estetik, fonksiyon ve mekânsal hissiyatın harmoniyle buluştuğu çizgiler.

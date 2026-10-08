@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Syne } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,13 @@ const syne = Syne({
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ffffff",
+};
 
 export const metadata: Metadata = {
   title: "İklim Güvenç — İç Mimar & Tasarımcı",
